@@ -1,0 +1,31 @@
+/* PhotographyPortfolio.module.css */
+.portfolioSection {
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.portfolioGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.portfolioItem {
+  display: block;
+  position: relative;
+  overflow: hidden; /* Ensure images don't overflow */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.portfolioItem:hover {
+  transform: scale(1.05);
+}
+
+.portfolioImage {
+  border-radius: 8px;
+}
