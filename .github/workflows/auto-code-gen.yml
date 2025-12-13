@@ -26,7 +26,6 @@ jobs:
         run: |
           echo "🚀 Workflow triggered!"
           echo "Event: ${{ github.event_name }}"
-          echo "Payload: ${{ toJson(github.event.client_payload) }}"
       
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -40,13 +39,15 @@ jobs:
       
       - name: Save feature spec
         if: github.event_name == 'repository_dispatch'
+        env:
+          FEATURE_JSON: ${{ toJson(github.event.client_payload.feature) }}
+          API_KEY: ${{ github.event.client_payload.api_key }}
         run: |
           mkdir -p .gemini-specs
-          cat > .gemini-specs/current-feature.json << 'EOF'
-          ${{ toJson(github.event.client_payload.feature) }}
-          EOF
+          echo "$FEATURE_JSON" > .gemini-specs/current-feature.json
+          echo "$API_KEY" > .gemini-specs/.api-key
           echo "📋 Feature spec saved:"
-          cat .gemini-specs/current-feature.json
+          cat .gemini-specs/current-feature.json | jq '.' 2>/dev/null || cat .gemini-specs/current-feature.json
       
       - name: Extract feature info
         id: feature-info
@@ -66,9 +67,16 @@ jobs:
       - name: Generate code with Gemini API
         if: github.event_name == 'repository_dispatch'
         env:
-          GEMINI_API_KEY: ${{ github.event.client_payload.api_key || secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY_SECRET: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          if [ -z "$GEMINI_API_KEY" ]; then
+          # Try to get API key from file first (passed via trigger), fallback to secret
+          if [ -f ".gemini-specs/.api-key" ] && [ -s ".gemini-specs/.api-key" ]; then
+            export GEMINI_API_KEY=$(cat .gemini-specs/.api-key)
+            echo "Using API key from trigger"
+          elif [ -n "$GEMINI_API_KEY_SECRET" ]; then
+            export GEMINI_API_KEY="$GEMINI_API_KEY_SECRET"
+            echo "Using API key from repository secrets"
+          else
             echo "⚠️ No GEMINI_API_KEY found. Add it to repository secrets or pass via trigger."
             exit 1
           fi
