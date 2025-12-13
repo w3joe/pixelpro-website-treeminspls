@@ -1,3 +1,5 @@
+FILE: app/services/videography/page.tsx
+```typescript
 "use client";
 
 import { motion } from "framer-motion";
@@ -71,3 +73,9 @@ export default function VideographyPage() {
     </motion.main>
   );
 }
+```
+
+FILE: public/photos/event-video-reel.mp4
+```
+(This file is a placeholder.  You would place your actual video file here.)
+```
