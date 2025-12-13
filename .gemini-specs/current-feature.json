@@ -1,0 +1,6 @@
+{
+  "description": "For a media production company, a strong visual portfolio is paramount for attracting creative professionals like Ethan. Placing a showreel or a curated gallery prominently on the homepage allows users to quickly assess the quality and style of work without needing to navigate deeper, enhancing immediate engagement and trust.",
+  "spec": "Implement a dedicated, auto-playing video showreel section or a dynamic image gallery (e.g., a carousel of project highlights) above the 'What we offer' section on the homepage. The showreel should be easily discoverable and visually engaging, potentially with a 'Watch Full Portfolio' call-to-action linking to a dedicated portfolio page.",
+  "title": "Prominent Homepage Showreel/Portfolio",
+  "type": "feature"
+}
