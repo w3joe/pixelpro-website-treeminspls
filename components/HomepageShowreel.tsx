@@ -1,6 +1,9 @@
+"use client"
+
 import React, { useState, useEffect } from 'react';
 import styles from './HomepageShowreel.module.css'; // Create this CSS module
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+
 
 interface ShowreelProps {
   videos?: { src: string; alt: string }[]; // Optional video showreel
@@ -27,7 +30,7 @@ const HomepageShowreel: React.FC<ShowreelProps> = ({ videos, images, type }) => 
       <div className={styles.showreelContainer}>
         <video className={styles.showreelVideo} src={videos[0].src} alt={videos[0].alt} autoPlay loop muted controls />
         <div className={styles.overlay}>
-          <Link to="/portfolio" className={styles.ctaButton}>
+          <Link href="/portfolio" className={styles.ctaButton}>
             Watch Full Portfolio
           </Link>
         </div>
@@ -44,7 +47,7 @@ const HomepageShowreel: React.FC<ShowreelProps> = ({ videos, images, type }) => 
           alt={images[currentIndex].alt}
         />
         <div className={styles.overlay}>
-          <Link to="/portfolio" className={styles.ctaButton}>
+          <Link href="/portfolio" className={styles.ctaButton}>
             View Our Work
           </Link>
         </div>
@@ -56,7 +59,7 @@ const HomepageShowreel: React.FC<ShowreelProps> = ({ videos, images, type }) => 
     <div className={styles.showreelContainer}>
       {/* Fallback content if no videos or images are provided */}
       <p>Showreel coming soon!</p>
-      <Link to="/portfolio" className={styles.ctaButton}>
+      <Link href="/portfolio" className={styles.ctaButton}>
         View Our Portfolio
       </Link>
     </div>
