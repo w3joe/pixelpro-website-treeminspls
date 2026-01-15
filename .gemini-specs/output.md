@@ -1,3 +1,5 @@
+FILE: app/services/page.tsx
+```typescript
 "use client";
 
 import Services from "@/components/ServicesSection";
@@ -29,3 +31,4 @@ export default function ServicesPage() {
     </motion.main>
   );
 }
+```
